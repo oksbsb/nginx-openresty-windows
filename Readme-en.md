@@ -2,19 +2,36 @@
 [ languages: [中文](Readme.md), [English](Readme-en.md) ]
 
 ### lastest release ###
+version:1.11.9.1001
 
+32 bit: http://pan.baidu.com/s/1pLczj3H
+        
+64 bit: http://pan.baidu.com/s/1ciVqkY
+
+>Publish Time: 2017-02-06
+
+>Changelog:  
+
+>Nginx core:
+- update nginx core to 1.11.9
+- update pcre to 8.40
+- update zlib to version 1.2.11
+
+
+### IOCP version (develop) ###
 version:1.11.5.1001
 
 32 bit: http://pan.baidu.com/s/1kVdhEPh
-        
+
 64 bit: http://pan.baidu.com/s/1o7IcPVO
 
 >Publish Time: 2016-10-24
 
->Changelog:  
+>Changelog: 
 
 >Nginx:
-- add IOCP event model for windows version
+
+- add IOCP (support multi-thread) network event model for Windows
 
 
 
@@ -478,3 +495,62 @@ version:1.11.5.1001
 
 >Libs:
 - upgrade openssl to 1.0.2j
+
+
+version:1.11.6.1001
+
+32 bit: http://pan.baidu.com/s/1dELfLKX
+        
+64 bit: http://pan.baidu.com/s/1eRU7dL4
+
+>Publish Time: 2016-12-13
+
+>Changelog:  
+
+>Nginx core:
+- upgrade nginx core to 1.11.6
+
+>Luajit lib:
+- upgraded LuaJIT to v2.1-20161104: https://github.com/openresty/luajit2/tags
+
+>Modules:
+- upgrade headers-more-nginx-module to 0.32
+- upgrade ngx-lua-module to 0.10.7
+
+>Libs:
+- upgrade lua-resty-core to 0.1.9
+- upgrade lua-resty-dns to 0.18
+- upgrade lua-resty-limit-traffic to 0.01
+- upgrade lua-resty-mysql to 0.17
+- upgrade lua-resty-redis to 0.26
+- upgrade lua-resty-upload to 0.10
+- upgrade lua-resty-websocket to 0.06
+- upgrade resty-cli to 0.16
+
+
+version:1.11.7.1001
+
+32 bit: http://pan.baidu.com/s/1bpvHYf9
+        
+64 bit: http://pan.baidu.com/s/1dEHcwiH
+
+>Publish Time: 2016-12-19
+
+>Changelog:  
+
+>Nginx core:
+- upgrade nginx core to 1.11.7
+
+
+version:1.11.7.1002
+
+32 bit: http://pan.baidu.com/s/1qYhLRFA
+        
+64 bit: http://pan.baidu.com/s/1bVxnPk
+
+>Publish Time: 2017-01-18
+
+>Changelog:  
+
+>Nginx core:
+- add more export functions, now 82 functions exported in total

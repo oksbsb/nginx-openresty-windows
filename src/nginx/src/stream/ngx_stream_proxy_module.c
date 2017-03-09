@@ -433,6 +433,23 @@ ngx_stream_proxy_handler(ngx_stream_session_t *s)
 
         host = &u->resolved->host;
 
+        umcf = ngx_stream_get_module_main_conf(s, ngx_stream_upstream_module);
+
+        uscfp = umcf->upstreams.elts;
+
+        for (i = 0; i < umcf->upstreams.nelts; i++) {
+
+            uscf = uscfp[i];
+
+            if (uscf->host.len == host->len
+                && ((uscf->port == 0 && u->resolved->no_port)
+                     || uscf->port == u->resolved->port)
+                && ngx_strncasecmp(uscf->host.data, host->data, host->len) == 0)
+            {
+                goto found;
+            }
+        }
+
         if (u->resolved->sockaddr) {
 
             if (u->resolved->port == 0
@@ -454,23 +471,6 @@ ngx_stream_proxy_handler(ngx_stream_session_t *s)
             ngx_stream_proxy_connect(s);
 
             return;
-        }
-
-        umcf = ngx_stream_get_module_main_conf(s, ngx_stream_upstream_module);
-
-        uscfp = umcf->upstreams.elts;
-
-        for (i = 0; i < umcf->upstreams.nelts; i++) {
-
-            uscf = uscfp[i];
-
-            if (uscf->host.len == host->len
-                && ((uscf->port == 0 && u->resolved->no_port)
-                     || uscf->port == u->resolved->port)
-                && ngx_strncasecmp(uscf->host.data, host->data, host->len) == 0)
-            {
-                goto found;
-            }
         }
 
         if (u->resolved->port == 0) {
@@ -578,16 +578,14 @@ ngx_stream_proxy_eval(ngx_stream_session_t *s,
         return NGX_ERROR;
     }
 
-    if (url.addrs && url.addrs[0].sockaddr) {
+    if (url.addrs) {
         u->resolved->sockaddr = url.addrs[0].sockaddr;
         u->resolved->socklen = url.addrs[0].socklen;
+        u->resolved->name = url.addrs[0].name;
         u->resolved->naddrs = 1;
-        u->resolved->host = url.addrs[0].name;
-
-    } else {
-        u->resolved->host = url.host;
     }
 
+    u->resolved->host = url.host;
     u->resolved->port = url.port;
     u->resolved->no_port = url.no_port;
 
@@ -809,6 +807,11 @@ ngx_stream_proxy_init_upstream(ngx_stream_session_t *s)
     }
 
     u->state->connect_time = ngx_current_msec - u->state->response_time;
+
+    if (u->peer.notify) {
+        u->peer.notify(&u->peer, u->peer.data,
+                       NGX_STREAM_UPSTREAM_NOTIFY_CONNECT);
+    }
 
     c->log->action = "proxying connection";
 
@@ -1183,7 +1186,8 @@ ngx_stream_proxy_ssl_name(ngx_stream_session_t *s)
     ngx_log_debug1(NGX_LOG_DEBUG_STREAM, s->connection->log, 0,
                    "upstream SSL server name: \"%s\"", name.data);
 
-    if (SSL_set_tlsext_host_name(u->peer.connection->ssl->connection, name.data)
+    if (SSL_set_tlsext_host_name(u->peer.connection->ssl->connection,
+                                 (char *) name.data)
         == 0)
     {
         ngx_ssl_error(NGX_LOG_ERR, s->connection->log, 0,
@@ -1530,8 +1534,9 @@ ngx_stream_proxy_process(ngx_stream_session_t *s, ngx_uint_t from_upstream,
 
         size = b->end - b->last;
 
-        if (size && src->read->ready && !src->read->delayed) {
-
+        if (size && src->read->ready && !src->read->delayed
+            && !src->read->error)
+        {
             if (limit_rate) {
                 limit = (off_t) limit_rate * (ngx_time() - u->start_sec + 1)
                         - *received;

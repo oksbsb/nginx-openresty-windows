@@ -3,6 +3,24 @@
 
 ### 最新版本 ###
 
+版本号:1.11.9.1001
+
+32 位下载地址: http://pan.baidu.com/s/1pLczj3H
+
+64 位下载地址: http://pan.baidu.com/s/1ciVqkY
+
+>发布时间: 2017-02-06
+
+>修改日志:  
+
+>Nginx:
+- 更新 nginx core 到版本 1.11.9
+- 更新 pcre 到版本 8.40
+- 更新 zlib 到版本 1.2.11
+
+
+
+### IOCP版本(开发版本) ###
 版本号:1.11.5.1001
 
 32 位下载地址: http://pan.baidu.com/s/1kVdhEPh
@@ -11,9 +29,12 @@
 
 >发布时间: 2016-10-24
 
->修改日志:
+>修改日志: 
+
 >Nginx:
-- 为 windows 版本添加了IOCP事件模型
+
+- 为 windows 版本添加了IOCP(支持多进程）网络事件模型
+
 
 
 ### 关于 ###
@@ -469,8 +490,71 @@ Version:1.9.7.1001
 >发布时间: 2016-10-14
 
 >修改日志:
+
 >Nginx:
 - 更新 nginx core 到 1.11.5
 
 >Libs:
 - 更新 openssl 到 1.0.2j
+
+
+
+版本号:1.11.6.1001
+
+32 位下载地址: http://pan.baidu.com/s/1dELfLKX
+
+64 位下载地址: http://pan.baidu.com/s/1eRU7dL4
+
+>发布时间: 2016-12-13
+
+>修改日志:  
+
+>Nginx:
+- 更新 nginx 到版本 1.11.6
+
+>Luajit lib:
+- 更新 LuaJIT 到版本 v2.1-20161104: https://github.com/openresty/luajit2/tags
+
+>Modules:
+- 更新 headers-more-nginx-module 模块到 0.32
+- 更新 ngx-lua-module 模块到 0.10.7
+
+>Libs:
+- 更新 lua-resty-core 库到 0.1.9
+- 更新 lua-resty-dns 库到 0.18
+- 更新 lua-resty-limit-traffic 库到 0.01
+- 更新 lua-resty-mysql 库到 0.17
+- 更新 lua-resty-redis 库到 0.26
+- 更新 lua-resty-upload 库到 0.10
+- 更新 lua-resty-websocket 库到 0.06
+- 更新 resty-cli 库到 0.16
+
+
+
+版本号:1.11.7.1001
+
+32 位下载地址: http://pan.baidu.com/s/1bpvHYf9
+
+64 位下载地址: http://pan.baidu.com/s/1dEHcwiH
+
+>发布时间: 2016-12-19
+
+>修改日志:  
+
+>Nginx:
+- 更新 nginx 到版本 1.11.7
+
+
+
+版本号:1.11.7.1002
+
+32 位下载地址: http://pan.baidu.com/s/1qYhLRFA
+
+64 位下载地址: http://pan.baidu.com/s/1bVxnPk
+
+>发布时间: 2016-01-18
+
+>修改日志:  
+
+>Nginx:
+- 添加更多的导出函数，使ngx目录下面的库文件可以正确引用，目前一共有82个函数被导出
